@@ -3,8 +3,9 @@ function login(username: string): string {
     const myname = {
         name: username,
     };
-    console.log(username)
-return myname["name"];
+    console.log(username);
+    console.log(username);
+    return myname.name;
 }
 
 login("jayed bin nanzir");
