@@ -3,6 +3,7 @@ function login(username: string): string {
     const myname = {
         name: username,
     };
+    console.log(username)
 return myname["name"];
 }
 
