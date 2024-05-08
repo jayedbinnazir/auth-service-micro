@@ -6,7 +6,7 @@ module.exports = {
         "plugin:@typescript-eslint/strict",
         "plugin:@typescript-eslint/strict-type-checked",
         "plugin:@typescript-eslint/stylistic-type-checked",
-        "prettier"
+        "prettier",
     ],
     parser: "@typescript-eslint/parser",
     plugins: ["@typescript-eslint"],
@@ -14,16 +14,14 @@ module.exports = {
         project: true,
         tsconfigRootDir: __dirname,
     },
-    root: true ,
+    root: true,
     // rules:{
     //   "no-console":"error"
     // },
     overrides: [
-    {
-      files: ['*.js'],
-      extends: ['plugin:@typescript-eslint/disable-type-checked'],
-    },
-  ],
+        {
+            files: ["*.js"],
+            extends: ["plugin:@typescript-eslint/disable-type-checked"],
+        },
+    ],
 };
-
-

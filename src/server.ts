@@ -1,9 +1,8 @@
-console.log("eslint setup")
+console.log("eslint setup");
 function login(username: string): string {
     const myname = {
-        name : username
-    }
-    return myname["name"]
+        name: username,
+    };return myname["name"];
 }
 
 login("jayed bin nanzir");
