@@ -1,16 +1,19 @@
 {
-  "name": "auth-service",
-  "version": "1.0.0",
-  "description": "A user managment service",
-  "main": "index.js",
-  "scripts": {
-    "dev": "node dist/server.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "author": "jayedbinnazir <jayed.freelance@gmail.com>",
-  "license": "ISC",
-  "devDependencies": {
-    "@types/node": "^20.12.10",
-    "typescript": "^5.4.5"
-  }
+    "name": "auth-service",
+    "version": "1.0.0",
+    "description": "A user managment service",
+    "main": "index.js",
+    "scripts": {
+        "dev": "node dist/server.js",
+        "format:check": "npx prettier . --check",
+        "format:fix": "npx prettier . --write",
+        "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "author": "jayedbinnazir <jayed.freelance@gmail.com>",
+    "license": "ISC",
+    "devDependencies": {
+        "@types/node": "^20.12.10",
+        "prettier": "3.2.5",
+        "typescript": "^5.4.5"
+    }
 }

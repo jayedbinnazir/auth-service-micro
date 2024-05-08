@@ -1,7 +1,7 @@
-console.log("Typescript setup")
+console.log("Typescript setup");
 
-function login(username:string):boolean{
-    return true
+function login(username: string): boolean {
+    return true;
 }
 
-login("jayed bin nazir")
+login("jayed bin nanzir");
