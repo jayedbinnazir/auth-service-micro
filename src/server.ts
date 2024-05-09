@@ -7,7 +7,7 @@ const startServer = () => {
     try {
         app.listen(PORT, () => {
             // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
-            logger.info(`listening to the port ${PORT}`);
+            logger.info(`listening to docker the  port ${PORT}`);
         });
     } catch (err: unknown) {
         if (err instanceof Error) {

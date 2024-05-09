@@ -4,7 +4,7 @@
     "description": "A user managment service",
     "main": "index.js",
     "scripts": {
-        "dev": "nodemon src/server.ts",
+        "dev": "nodemon -L src/server.ts",
         "format:check": "npx prettier . --check",
         "format:fix": "npx prettier . --write",
         "lint:check": "npx eslint .",
