@@ -1,6 +1,7 @@
 import express, { NextFunction, Request, Response } from "express";
 import { HttpError } from "http-errors";
 import logger from "./config/logger";
+import authRouter from "./routes/auth";
 
 const app = express();
 
@@ -10,6 +11,9 @@ const app = express();
 app.get("/", async (req: Request, res: Response, next: NextFunction) => {
     res.send("<h1>welcome to microservice</h1>");
 });
+
+//Registration
+app.use("/auth", authRouter);
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 app.use((err: unknown, req: Request, res: Response, next: NextFunction) => {
