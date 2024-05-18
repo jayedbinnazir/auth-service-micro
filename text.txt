@@ -1,0 +1,3 @@
+cd Desktop/Microservices/auth-service
+
+docker run --rm --name mern_container -v mernpgdata:/var/lib/postgresql/data -e POSTGRES_USER=root -e POSTGRES_PASSWORD=root -p 5432:5432 -d postgres

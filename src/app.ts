@@ -6,6 +6,8 @@ import "reflect-metadata";
 
 const app = express();
 
+app.use(express.json());
+
 //routing
 
 // eslint-disable-next-line @typescript-eslint/no-misused-promises, @typescript-eslint/require-await, @typescript-eslint/no-unused-vars
@@ -17,21 +19,37 @@ app.get("/", async (req: Request, res: Response, next: NextFunction) => {
 app.use("/auth", authRouter);
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-app.use((err: unknown, req: Request, res: Response, next: NextFunction) => {
-    if (err instanceof HttpError) {
-        logger.error(err.message);
-        const statusCode = err.statusCode || 500;
-        res.status(statusCode).json({
-            errors: [
-                {
-                    type: err.name,
-                    msg: err.message,
-                    location: "",
-                    path: "",
-                },
-            ],
-        });
-    }
+// app.use((err: unknown, req: Request, res: Response, next: NextFunction) => {
+//     if (err instanceof HttpError) {
+//         logger.error(err.message);
+//         const statusCode = err.statusCode || 500;
+//         res.status(statusCode).json({
+//             errors: [
+//                 {
+//                     type: err.name,
+//                     msg: err.message,
+//                     location: "",
+//                     path: "",
+//                 },
+//             ],
+//         });
+//     }
+// });
+
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+app.use((err: HttpError, req: Request, res: Response, next: NextFunction) => {
+    logger.error(err.message);
+    const statusCode = err.statusCode || 500;
+    res.status(statusCode).json({
+        errors: [
+            {
+                type: err.name,
+                msg: err.message,
+                location: "",
+                path: "",
+            },
+        ],
+    });
 });
 
 export default app;
