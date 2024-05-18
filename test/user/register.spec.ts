@@ -2,8 +2,9 @@ import request from "supertest";
 import app from "../../src/app";
 import { DataSource } from "typeorm";
 import { AppDataSource } from "../../src/config/data-source";
-import { truncateTable } from "../user/utils/index";
+// import { truncateTable } from "../user/utils/index";
 import { User } from "../../src/entity/User";
+import { Roles } from "../../src/const";
 
 describe("POST /auth/register", () => {
     let connection: DataSource;
@@ -13,8 +14,11 @@ describe("POST /auth/register", () => {
     });
 
     beforeEach(async () => {
+        await connection.dropDatabase();
+        await connection.synchronize();
+
         //truncated database
-        await truncateTable(connection);
+        // await truncateTable(connection);
     });
 
     afterAll(async () => {
@@ -104,6 +108,25 @@ describe("POST /auth/register", () => {
             expect((response.body as Record<string, string>).userId).toBe(
                 users[0].id,
             );
+        });
+
+        it("should assign a customer role", async () => {
+            //Arrange
+            const userData = {
+                firstName: "jayed",
+                lastName: "bin nazir",
+                email: "jayed.freelance@gmail.com",
+                password: "thedeno",
+            };
+            //act
+            await request(app).post("/auth/register").send(userData);
+
+            //assert
+            const repository = connection.getRepository(User);
+            const users = await repository.find();
+
+            expect(users[0]).toHaveProperty("role");
+            expect(users[0].role).toBe(Roles.CUSTOMER);
         });
     });
 });
