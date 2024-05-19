@@ -5,6 +5,7 @@ import { UserService } from "../services/UserService";
 import { AppDataSource } from "../config/data-source";
 import { User } from "../entity/User";
 import logger from "../config/logger";
+import registerValidator from "../validators/register-validator";
 
 const authRouter = express.Router();
 
@@ -14,6 +15,7 @@ const authController = new AuthController(userService, logger);
 
 authRouter.post(
     "/register",
+    registerValidator,
     (req: Request, res: Response, next: NextFunction) =>
         authController.register(req, res, next),
 );
