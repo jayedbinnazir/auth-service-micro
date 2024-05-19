@@ -84,7 +84,7 @@ describe("POST /auth/register", () => {
             expect(users[0].firstName).toBe(userData.firstName);
             expect(users[0].lastName).toBe(userData.lastName);
             expect(users[0].email).toBe(userData.email);
-            expect(users[0].password).toBe(userData.password);
+            // expect(users[0].password).toBe(userData.password);
         });
 
         it("should return userId", async () => {
@@ -127,6 +127,47 @@ describe("POST /auth/register", () => {
 
             expect(users[0]).toHaveProperty("role");
             expect(users[0].role).toBe(Roles.CUSTOMER);
+        });
+
+        it("should save hashed password in the database", async () => {
+            //Arrange
+            const userData = {
+                firstName: "jayed",
+                lastName: "bin nazir",
+                email: "jayed.freelance@gmail.com",
+                password: "thedeno",
+            };
+            //act
+            await request(app).post("/auth/register").send(userData);
+
+            //Assert
+            const repository = connection.getRepository(User);
+            const users = await repository.find();
+
+            expect(users[0].password).not.toBe(userData.password);
+            expect(users[0].password).toHaveLength(60);
+            expect(users[0].password).toMatch(/^\$2b\$\d+\$/);
+        });
+
+        it("the email should be unique", async () => {
+            //Arrange
+            const userData = {
+                firstName: "jayed",
+                lastName: "bin nazir",
+                email: "jayed.freelance@gmail.com",
+                password: "thedeno",
+            };
+
+            const userRepository = connection.getRepository(User);
+            await userRepository.save({ ...userData, role: Roles.CUSTOMER });
+            //act
+            const response = await request(app)
+                .post("/auth/register")
+                .send(userData);
+            const users = await userRepository.find();
+            //assert
+            expect(response.statusCode).toBe(400);
+            expect(users).toHaveLength(1);
         });
     });
 });
