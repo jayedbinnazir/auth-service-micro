@@ -171,7 +171,7 @@ describe("POST /auth/register", () => {
         });
     });
 
-    describe("fields are missing", () => {
+    describe("Fields are missing", () => {
         it("Should return status 400 if email field is missing", async () => {
             //Arrange
             const userData = {
