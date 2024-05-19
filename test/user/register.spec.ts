@@ -192,4 +192,27 @@ describe("POST /auth/register", () => {
             expect(users).toHaveLength(0);
         });
     });
+
+    describe("Field are in proper format", () => {
+        it("should trim email field", async () => {
+            //Arrange
+            const userData = {
+                firstName: "jayed",
+                lastName: "bin nazir",
+                email: " jayed.freelance@gmail.com ",
+                password: "thedeno",
+            };
+            //act
+            await request(app).post("/auth/register").send(userData);
+
+            const userRepository = connection.getRepository(User);
+
+            await userRepository.save({ ...userData, role: Roles.CUSTOMER });
+
+            const users = await userRepository.find();
+            //assert
+            expect(users[0].email).toBe("jayed.freelance@gmail.com");
+            expect(users[0].email).toMatch(/^[^\s@]+@[^\s@]+\.[^\s@]+$/);
+        });
+    });
 });
